@@ -1,0 +1,1 @@
+var tipuesearch = {"pages": [{'title': 'About', 'text': 'cmsimde_site \n 倉儲: https://github.com/mdecd2023/2a-pj1ag12.git', 'tags': '', 'url': 'About.html'}]};
