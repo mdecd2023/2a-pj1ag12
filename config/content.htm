@@ -3,4 +3,59 @@
 <p>41023114 王樟皓 41023126 卓桓琮</p>
 <p>倉儲:<span> <a href="https://github.com/mdecd2023/2a-pj1ag12">https://github.com/mdecd2023/2a-pj1ag12</a></span></p>
 <p>網站:<span> <a href="https://mdecd2023.github.io/2a-pj1ag12">https://mdecd2023.github.io/2a-pj1ag12</a></span></p>
+<h1>W3</h1>
 <p></p>
+<h3>hw1</h3>
+<p><span></span></p>
+<p><span>請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
+<p>用Python的requests套件來進行網頁存取，並且查看網頁的回應狀態碼，判斷網頁是否存在。以下是一個可以判斷組別網頁建置狀態的Python程式：<br/>import requests</p>
+<p>base_url = "https://github.com/NTUT-2A/"</p>
+<p># 迭代21個組別<br/>for i in range(1, 22):<br/> # 組別網頁的URL<br/> url = base_url + f"2a-pj1ag{i}"</p>
+<p># 建立 GET 請求<br/> response = requests.get(url)</p>
+<p># 判斷回應狀態碼是否為200<br/> if response.status_code == 200:<br/> print(f"2a-pj1ag{i} 已經完成網頁建置")<br/> else:<br/> print(f"2a-pj1ag{i} 尚未完成網頁建置")<br/>程式會先以for迴圈迭代21個組別，然後使用requests.get()函式發送GET請求去查詢每一個組別的網頁狀態。如果回應狀態碼為200，代表網頁存在，組別已完成網頁建置；反之，如果回應狀態碼不是200，代表網頁不存在，組別尚未完成網頁建置。</p>
+<p></p>
+<p></p>
+<p></p>
+<h2>hw2</h2>
+<p><span>Tutorial1-CoppeliaSim 4.3.0 User Manual - CoppeliaSim 4.3.0 使用者手冊 </span><span role="gridcell"><a class="x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 xggy1nq x1a2a7pz xt0b8zv x1heor9g x1bvjpef" href="https://mde.tw/pjcopsim/content/bubbleRobTutorial.html?fbclid=IwAR0sGaqLQQxMJchCAIBdEn9ZoHwqu0QtYQtPjsfihm6VJu0yl3ezwg-Gq48" rel="nofollow" role="link" tabindex="-1" target="_blank">https://mde.tw/pjcopsim/content/bubbleRobTutorial.html</a></span><span> </span></p>
+<p><span>心得, 展示頁面說明各組員所完成項目, 說明該組的專案規劃.</span><br/><span></span></p>
+<p><span></span></p>
+<h1>程式note</h1>
+<p>python 相關資料</p>
+<p>參考來源:<a href="https://steam.oxxostudio.tw/category/python/index.html">Python 教學 | STEAM 教育學習網 (oxxostudio.tw)</a></p>
+<h2>Requests 函式庫</h2>
+<p><span>requests 函式庫 ( 模組 ) 是相當流行的 Python 外部函式庫，透過 requests 能夠輕鬆抓取網頁的資料，這篇教學會介紹 requests 函式庫的基本用法。</span></p>
+<p><a href="https://steam.oxxostudio.tw/category/python/spider/requests.html">https://steam.oxxostudio.tw/category/python/spider/requests.html</a></p><h2>重複迴圈 ( for、while )</h2>
+<p>「for 迴圈」的使用的方法為「for 變數 in 可迭代的物件:」，執行之後，for 迴圈會依序將可以迭代的物件取出，賦值給指定的變數 。</p>
+<p><a href="https://steam.oxxostudio.tw/category/python/basic/loop.html" title="參考資料">https://steam.oxxostudio.tw/category/python/basic/loop.html</a></p>
+<h1>補充note</h1>
+<h2>專案規劃</h2>
+<p>專案規劃是一個系統性的過程，它包括了訂定目標、確定所需的資源、分配工作和責任、確定時間表、制定預算、風險評估和解決方案等。以下是一個簡單的專案規劃步驟：</p>
+<ol>
+<li>
+<p>確定目標：確定您要達成的目標是什麼。這可能包括確定任務、時程表、預算、資源、風險等。</p>
+</li>
+<li>
+<p>分析問題：分析問題，確定這個專案所需要的資源和限制，包括人力、財務、時間和技術方面的問題。</p>
+</li>
+<li>
+<p>制定計畫：制定一個計畫，詳細列出實現目標所需要的步驟，確定哪些工作需要完成以及誰將負責完成這些工作。</p>
+</li>
+<li>
+<p>資源分配：確定需要哪些資源以及如何分配這些資源。這可能包括人員、技術和設備等。</p>
+</li>
+<li>
+<p>建立時間表：建立一個時間表，確定各項工作和活動的時間表和完成期限。</p>
+</li>
+<li>
+<p>制定預算：制定一個預算，確定需要的財務資源和預算限制。</p>
+</li>
+<li>
+<p>風險評估：評估可能影響項目成功的風險，確定應對策略和解決方案。</p>
+</li>
+<li>
+<p>完成計畫：編制完整的計畫，包括上述所有步驟的詳細細節和時間表。</p>
+</li>
+</ol>
+<p>經過上述步驟，專案規劃就完成了。一旦您完成了這些步驟，您就可以開始執行計畫，確保您的專案能夠順利進行並達成預期的目標。</p>
+<p><span></span></p>

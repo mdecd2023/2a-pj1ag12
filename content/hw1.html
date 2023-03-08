@@ -2,7 +2,7 @@
         <head>
         <title>cmsimde_site</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H3">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -141,12 +141,18 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='W3.html'>Next</a> >> W3<br /><h1>About</h1>
-<p><strong>members:</strong></p>
-<p>41023114 王樟皓 41023126 卓桓琮</p>
-<p>倉儲:<span> <a href="https://github.com/mdecd2023/2a-pj1ag12">https://github.com/mdecd2023/2a-pj1ag12</a></span></p>
-<p>網站:<span> <a href="https://mdecd2023.github.io/2a-pj1ag12">https://mdecd2023.github.io/2a-pj1ag12</a></span></p>
-<br /> <a href='W3.html'>Next</a> >> W3</div>
+    <div id="tipue_search_content">W3 << <a href='W3.html'>Previous</a> <a href='hw2.html'>Next</a> >> hw2<br /><h1>hw1</h1>
+<p><span></span></p>
+<p><span>請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
+<p>用Python的requests套件來進行網頁存取，並且查看網頁的回應狀態碼，判斷網頁是否存在。以下是一個可以判斷組別網頁建置狀態的Python程式：<br/>import requests</p>
+<p>base_url = "https://github.com/NTUT-2A/"</p>
+<p># 迭代21個組別<br/>for i in range(1, 22):<br/> # 組別網頁的URL<br/> url = base_url + f"2a-pj1ag{i}"</p>
+<p># 建立 GET 請求<br/> response = requests.get(url)</p>
+<p># 判斷回應狀態碼是否為200<br/> if response.status_code == 200:<br/> print(f"2a-pj1ag{i} 已經完成網頁建置")<br/> else:<br/> print(f"2a-pj1ag{i} 尚未完成網頁建置")<br/>程式會先以for迴圈迭代21個組別，然後使用requests.get()函式發送GET請求去查詢每一個組別的網頁狀態。如果回應狀態碼為200，代表網頁存在，組別已完成網頁建置；反之，如果回應狀態碼不是200，代表網頁不存在，組別尚未完成網頁建置。</p>
+<p></p>
+<p></p>
+<p></p>
+<br />W3 << <a href='W3.html'>Previous</a> <a href='hw2.html'>Next</a> >> hw2</div>
         
     <!-- footer -->
       <div class="container">
