@@ -192,6 +192,19 @@ var winkVideoData_41023126 = {
 <source src="/downloads\w3-BubbleRob tutorial\w3-st10.mp4" type="video/mp4"/></video></div>
 <p><br/><strong>FINAL</strong></p>
 <p>調整障礙物位置 不要讓車子跑出去 就完成了</p>
+<h2>程式</h2>
+<p></p>
+<p><strong>bubbleRob 程式</strong></p>
+<p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>
+<p>function sysCall_sensing()<br/> local result,distData=sim.checkDistance(robotCollection,sim.handle_all)<br/> if result&gt;0 then<br/> sim.addDrawingObjectItem(distanceSegment,nil)<br/> sim.addDrawingObjectItem(distanceSegment,distData)<br/> sim.setGraphStreamValue(graph,distStream,distData[7])<br/> end<br/> local p=sim.getObjectPosition(bubbleRobBase,sim.handle_world)<br/> sim.addDrawingObjectItem(robotTrace,p)<br/>end</p>
+<p>function speedChange_callback(ui,id,newVal)<br/> speed=minMaxSpeed[1]+(minMaxSpeed[2]-minMaxSpeed[1])*newVal/100<br/>end</p>
+<p>function sysCall_actuation() <br/> result=sim.readProximitySensor(noseSensor) -- Read the proximity sensor<br/> -- If we detected something, we set the backward mode:<br/> if (result&gt;0) then backUntilTime=sim.getSimulationTime()+4 end</p>
+<p>if (backUntilTime&lt;sim.getSimulationTime()) then<br/> -- When in forward mode, we simply move forward at the desired speed<br/> sim.setJointTargetVelocity(leftMotor,speed)<br/> sim.setJointTargetVelocity(rightMotor,speed)<br/> else<br/> -- When in backward mode, we simply backup in a curve at reduced speed<br/> sim.setJointTargetVelocity(leftMotor,-speed/2)<br/> sim.setJointTargetVelocity(rightMotor,-speed/8)<br/> end<br/>end</p>
+<p>function sysCall_cleanup() <br/> simUI.destroy(ui)<br/>end</p>
+<p><strong>Vision senser 程式</strong></p>
+<p>function sysCall_vision(inData)<br/> simVision.sensorImgToWorkImg(inData.handle)<br/> simVision.edgeDetectionOnWorkImg(inData.handle,0.2)<br/> simVision.workImgToSensorImg(inData.handle)<br/>end</p>
+<p>function sysCall_init()<br/>end</p>
+<p></p>
 <h1>目前進度</h1>
 <p>1.網頁已經架設完成</p>
 <p>2.完成tutorial1-bubbleRob<span>的作業</span></p>
@@ -229,14 +242,17 @@ var winkVideoData_41023126 = {
 <h2>程式note</h2>
 <p>python 相關資料</p>
 <p>參考來源:<a href="https://steam.oxxostudio.tw/category/python/index.html">Python 教學 | STEAM 教育學習網 (oxxostudio.tw)</a></p>
-<h2>Requests 函式庫</h2>
+<h3>Requests 函式庫</h3>
 <p><span>requests 函式庫 ( 模組 ) 是相當流行的 Python 外部函式庫，透過 requests 能夠輕鬆抓取網頁的資料，這篇教學會介紹 requests 函式庫的基本用法。</span></p>
 <p><a href="https://steam.oxxostudio.tw/category/python/spider/requests.html">https://steam.oxxostudio.tw/category/python/spider/requests.html</a></p>
-<h2>重複迴圈 ( for、while )</h2>
+<h3>重複迴圈 ( for、while )</h3>
 <p>「for 迴圈」的使用的方法為「for 變數 in 可迭代的物件:」，執行之後，for 迴圈會依序將可以迭代的物件取出，賦值給指定的變數 。</p>
 <p><a href="https://steam.oxxostudio.tw/category/python/basic/loop.html" title="參考資料">https://steam.oxxostudio.tw/category/python/basic/loop.html</a></p>
+<h3>Lua程式</h3>
+<p>以下是一些特徵：</p>
+<p>檔的擴展名通常是.lua<br/>程式的函數定義使用關鍵字function，參數不用括號<br/>變數名稱不需要類型聲明<br/>語句結尾不需要分號<br/>註釋以雙橫線（--）開始，單行或多行註釋都可以<br/>UI的定義使用的是Lua的字串處理功能<br/>以上特徵都是Lua程序的特點。 因此，這段程式可以被確認為是Lua編寫的。</p>
 <h2>補充note</h2>
-<h2>專案規劃定義</h2>
+<h3>專案規劃定義</h3>
 <p>專案規劃是一個系統性的過程，它包括了訂定目標、確定所需的資源、分配工作和責任、確定時間表、制定預算、風險評估和解決方案等。以下是一個簡單的專案規劃步驟：</p>
 <ol>
 <li>

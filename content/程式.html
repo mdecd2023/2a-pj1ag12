@@ -2,7 +2,7 @@
         <head>
         <title>cmsimde_site</title>
         <meta charset="utf-8">
-<meta property="head" content="H3">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -141,36 +141,20 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">補充note << <a href='補充note.html'>Previous</a> <br /><h1>專案規劃定義</h1>
-<p>專案規劃是一個系統性的過程，它包括了訂定目標、確定所需的資源、分配工作和責任、確定時間表、制定預算、風險評估和解決方案等。以下是一個簡單的專案規劃步驟：</p>
-<ol>
-<li>
-<p>確定目標：確定您要達成的目標是什麼。這可能包括確定任務、時程表、預算、資源、風險等。</p>
-</li>
-<li>
-<p>分析問題：分析問題，確定這個專案所需要的資源和限制，包括人力、財務、時間和技術方面的問題。</p>
-</li>
-<li>
-<p>制定計畫：制定一個計畫，詳細列出實現目標所需要的步驟，確定哪些工作需要完成以及誰將負責完成這些工作。</p>
-</li>
-<li>
-<p>資源分配：確定需要哪些資源以及如何分配這些資源。這可能包括人員、技術和設備等。</p>
-</li>
-<li>
-<p>建立時間表：建立一個時間表，確定各項工作和活動的時間表和完成期限。</p>
-</li>
-<li>
-<p>制定預算：制定一個預算，確定需要的財務資源和預算限制。</p>
-</li>
-<li>
-<p>風險評估：評估可能影響項目成功的風險，確定應對策略和解決方案。</p>
-</li>
-<li>
-<p>完成計畫：編制完整的計畫，包括上述所有步驟的詳細細節和時間表。</p>
-</li>
-</ol>
-<p>經過上述步驟，專案規劃就完成了。一旦您完成了這些步驟，您就可以開始執行計畫，確保您的專案能夠順利進行並達成預期的目標。</p>
-<p><span></span></p><br />補充note << <a href='補充note.html'>Previous</a> </div>
+    <div id="tipue_search_content">tutorial1 << <a href='tutorial1.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度<br /><h1>程式</h1>
+<p></p>
+<p><strong>bubbleRob 程式</strong></p>
+<p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>
+<p>function sysCall_sensing()<br/> local result,distData=sim.checkDistance(robotCollection,sim.handle_all)<br/> if result&gt;0 then<br/> sim.addDrawingObjectItem(distanceSegment,nil)<br/> sim.addDrawingObjectItem(distanceSegment,distData)<br/> sim.setGraphStreamValue(graph,distStream,distData[7])<br/> end<br/> local p=sim.getObjectPosition(bubbleRobBase,sim.handle_world)<br/> sim.addDrawingObjectItem(robotTrace,p)<br/>end</p>
+<p>function speedChange_callback(ui,id,newVal)<br/> speed=minMaxSpeed[1]+(minMaxSpeed[2]-minMaxSpeed[1])*newVal/100<br/>end</p>
+<p>function sysCall_actuation() <br/> result=sim.readProximitySensor(noseSensor) -- Read the proximity sensor<br/> -- If we detected something, we set the backward mode:<br/> if (result&gt;0) then backUntilTime=sim.getSimulationTime()+4 end</p>
+<p>if (backUntilTime&lt;sim.getSimulationTime()) then<br/> -- When in forward mode, we simply move forward at the desired speed<br/> sim.setJointTargetVelocity(leftMotor,speed)<br/> sim.setJointTargetVelocity(rightMotor,speed)<br/> else<br/> -- When in backward mode, we simply backup in a curve at reduced speed<br/> sim.setJointTargetVelocity(leftMotor,-speed/2)<br/> sim.setJointTargetVelocity(rightMotor,-speed/8)<br/> end<br/>end</p>
+<p>function sysCall_cleanup() <br/> simUI.destroy(ui)<br/>end</p>
+<p><strong>Vision senser 程式</strong></p>
+<p>function sysCall_vision(inData)<br/> simVision.sensorImgToWorkImg(inData.handle)<br/> simVision.edgeDetectionOnWorkImg(inData.handle,0.2)<br/> simVision.workImgToSensorImg(inData.handle)<br/>end</p>
+<p>function sysCall_init()<br/>end</p>
+<p></p>
+<br />tutorial1 << <a href='tutorial1.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度</div>
         
     <!-- footer -->
       <div class="container">
