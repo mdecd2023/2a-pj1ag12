@@ -130,7 +130,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='w3.html'>w3</a><ul class='dropdown'><li><a href='hw1.html'>hw1</a><li><a href='hw2.html'>hw2</a></li></ul><li class='has-children'><a href='w4.html'>w4</a><ul class='dropdown'><li><a href='w4-note.html'>w4-note</a></li></ul><li class='has-children'><a href='tutorial1.html'>tutorial1</a><ul class='dropdown'><li><a href='程式.html'>程式</a></li></ul><li><a href='目前進度.html'>目前進度</a><li><a href='專案規劃.html'>專案規劃</a><li><a href='心得.html'>心得</a><li><a href='Progress.html'>Progress</a><li class='has-children'><a href='note.html'>note</a><ul class='dropdown'><li class='has-children'><a href='程式note.html'>程式note</a><ul class='dropdown'><li><a href='Requests 函式庫.html'>Requests 函式庫</a><li><a href='重複迴圈 ( for、while ).html'>重複迴圈 ( for、while )</a><li><a href='Lua程式.html'>Lua程式</a></li></ul><li class='has-children'><a href='補充note.html'>補充note</a><ul class='dropdown'><li><a href='專案規劃定義.html'>專案規劃定義</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='w3.html'>w3</a><ul class='dropdown'><li><a href='hw1.html'>hw1</a><li><a href='hw2.html'>hw2</a></li></ul><li class='has-children'><a href='w4.html'>w4</a><ul class='dropdown'><li><a href='w4-note.html'>w4-note</a></li></ul><li class='has-children'><a href='tutorial1.html'>tutorial1</a><ul class='dropdown'><li><a href='製作過程.html'>製作過程</a><li><a href='程式.html'>程式</a></li></ul><li><a href='目前進度.html'>目前進度</a><li><a href='專案規劃.html'>專案規劃</a><li><a href='心得.html'>心得</a><li><a href='Progress.html'>Progress</a><li class='has-children'><a href='note.html'>note</a><ul class='dropdown'><li class='has-children'><a href='程式note.html'>程式note</a><ul class='dropdown'><li><a href='Requests 函式庫.html'>Requests 函式庫</a><li><a href='重複迴圈 ( for、while ).html'>重複迴圈 ( for、while )</a><li><a href='Lua程式.html'>Lua程式</a></li></ul><li class='has-children'><a href='補充note.html'>補充note</a><ul class='dropdown'><li><a href='專案規劃定義.html'>專案規劃定義</a></li>
                       </ul>
                 </nav>
               </div>
@@ -141,7 +141,7 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">tutorial1 << <a href='tutorial1.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度<br /><h1>程式</h1>
+    <div id="tipue_search_content">製作過程 << <a href='製作過程.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度<br /><h1>程式</h1>
 <p></p>
 <p><strong>bubbleRob 程式</strong></p>
 <p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>
@@ -154,7 +154,7 @@ img.add_border {
 <p>function sysCall_vision(inData)<br/> simVision.sensorImgToWorkImg(inData.handle)<br/> simVision.edgeDetectionOnWorkImg(inData.handle,0.2)<br/> simVision.workImgToSensorImg(inData.handle)<br/>end</p>
 <p>function sysCall_init()<br/>end</p>
 <p></p>
-<br />tutorial1 << <a href='tutorial1.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度</div>
+<br />製作過程 << <a href='製作過程.html'>Previous</a> <a href='目前進度.html'>Next</a> >> 目前進度</div>
         
     <!-- footer -->
       <div class="container">

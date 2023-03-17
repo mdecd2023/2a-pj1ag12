@@ -41,9 +41,24 @@
 <p><span>要在CoppeliaSim場景中建立基本類型物件並設定它們的位置，可以使用Lua或Python腳本。首先，需要建立物件，然後使用setObjectPosition（）函數將它們放置在所需的位置。例如，以下是在Lua中建立一個圓柱體並將其放置在（1,2,3）的位置的示例代碼：</span></p>
 <p>handle=sim.createPureShape(1,16,{0.1,0.1,0.2},0.1)<br/>sim.setObjectPosition(handle,-1,{1,2,3})</p>
 <p><strong>4.CoppeliaSim .ttt 檔案格式與 .simscene.xml 檔案格式有何不同?</strong></p>
-<p>在CoppeliaSim中，.ttt文件是二進制文件格式，用於保存整個場景，包括所有物件、組件、腳本等。而.simscene.xml文件是XML文件格式，用於保存場景的部分內容，如物件、組件和它們的位置等。這使得可以更容易地編輯和版本控制場景的部分內容，而不必保存整個場景。</p><h1>tutorial1</h1>
-<p>bubboleRob ppt報告:<a href="https://docs.google.com/presentation/d/1yDeSqAenM2wTI2ubLBoeaWY4cIU1Cmxw/edit?usp=share_link&amp;ouid=113096178602911505348&amp;rtpof=true&amp;sd=true" title="PPT Report">Google硬碟 PPT Report</a> </p>
-<p>完成模擬影片:<a href="https://youtu.be/iL5Z9Yr515I">https://youtu.be/iL5Z9Yr515I</a></p>
+<p>在CoppeliaSim中，.ttt文件是二進制文件格式，用於保存整個場景，包括所有物件、組件、腳本等。而.simscene.xml文件是XML文件格式，用於保存場景的部分內容，如物件、組件和它們的位置等。這使得可以更容易地編輯和版本控制場景的部分內容，而不必保存整個場景。</p>
+<h1>tutorial1</h1>
+<p>bubboleRob ppt報告:<a href="/downloads/Bubblerob.pptx">BubbleRob.pptx</a>   <a href="https://docs.google.com/presentation/d/1yDeSqAenM2wTI2ubLBoeaWY4cIU1Cmxw/edit?usp=share_link&amp;ouid=113096178602911505348&amp;rtpof=true&amp;sd=true" title="PPT Report">Google硬碟 PPT Report</a> </p>
+<p>完成模擬影片:<a href="https://youtu.be/iL5Z9Yr515I">https://youtu.be/iL5Z9Yr515I</a>  </p>
+<p>完成檔:<a href="/downloads/bubbRob.ttt">bubbleRob.ttt</a></p>
+<script>
+var winkVideoData_41023126 = {
+  dataVersion: 1,
+  frameRate: 10,
+  buttonFrameLength: 5,
+  buttonFrameOffset: 2,
+  frameStops: {
+  },
+};
+</script>
+<!-- 接下來將 mp4 檔案從 downloads 目錄取出 -->
+<div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/static" data-varname="winkVideoData_41023126" height="630" muted="true" width="1008">
+<source src="/downloads\w3-BubbleRob tutorial-finish video.mp4" type="video/mp4"/></video></div><h2>製作過程</h2>
 <p><strong>stage1</strong></p>
 <p><span><br/>模擬兩球相撞</span></p>
 <script>
@@ -199,7 +214,8 @@ var winkVideoData_41023126 = {
 <div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/static" data-varname="winkVideoData_41023126" height="630" muted="true" width="1008">
 <source src="/downloads\w3-BubbleRob tutorial\w3-st10.mp4" type="video/mp4"/></video></div>
 <p><br/><strong>FINAL</strong></p>
-<p>調整障礙物位置 不要讓車子跑出去 就完成了</p><h2>程式</h2>
+<p>調整障礙物位置 不要讓車子跑出去 就完成了</p>
+<h2>程式</h2>
 <p></p>
 <p><strong>bubbleRob 程式</strong></p>
 <p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>
