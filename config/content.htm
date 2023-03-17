@@ -32,10 +32,18 @@
 <p>這個網站提供了一個學習機器人運動和避障演算法的資源，其主要特點包括：</p>
 <p>1.學習機器人模擬器和程式碼編輯器，讓我們可以進行實踐和練習</p>
 <p>2.練習問題，可以讓我們更進一步鞏固所學的知識和技能。</p>
-<h1>tutorial1</h1>
+<h2>w4-note</h2>
+<p><strong>1.在 CoppeliaSim 中, scene 與 model 有何不同?</strong></p>
+<p>在CoppeliaSim中，場景（scene）和模型（model）是兩個不同的概念。場景是指由多個模型組成的環境或場景，而模型是指一個單獨的物件或組件。可以將模型添加到場景中，並對它們進行組合和控制。</p>
+<p><strong>2.在 CoppeliaSim scene 中, 何謂 clean model?</strong></p>
+<p><span>在CoppeliaSim中，clean model是指一個不包含任何不必要物件或組件的模型。這些物件或組件可能會干擾模型的性能或導致不必要的計算開銷。因此，建議在創建模型時始終保持模型的乾淨，只包含必要的物件或組件。</span></p>
+<p><strong>3.如何在 CoppeliaSim scene 中, 如何利用 Lua 以及 Python 建立 primitive type object, 並利用程式設定物件位置?</strong></p>
+<p><span>要在CoppeliaSim場景中建立基本類型物件並設定它們的位置，可以使用Lua或Python腳本。首先，需要建立物件，然後使用setObjectPosition（）函數將它們放置在所需的位置。例如，以下是在Lua中建立一個圓柱體並將其放置在（1,2,3）的位置的示例代碼：</span></p>
+<p>handle=sim.createPureShape(1,16,{0.1,0.1,0.2},0.1)<br/>sim.setObjectPosition(handle,-1,{1,2,3})</p>
+<p><strong>4.CoppeliaSim .ttt 檔案格式與 .simscene.xml 檔案格式有何不同?</strong></p>
+<p>在CoppeliaSim中，.ttt文件是二進制文件格式，用於保存整個場景，包括所有物件、組件、腳本等。而.simscene.xml文件是XML文件格式，用於保存場景的部分內容，如物件、組件和它們的位置等。這使得可以更容易地編輯和版本控制場景的部分內容，而不必保存整個場景。</p><h1>tutorial1</h1>
 <p>bubboleRob ppt報告:<a href="https://docs.google.com/presentation/d/1yDeSqAenM2wTI2ubLBoeaWY4cIU1Cmxw/edit?usp=share_link&amp;ouid=113096178602911505348&amp;rtpof=true&amp;sd=true" title="PPT Report">Google硬碟 PPT Report</a> </p>
 <p>完成模擬影片:<a href="https://youtu.be/iL5Z9Yr515I">https://youtu.be/iL5Z9Yr515I</a></p>
-<p></p>
 <p><strong>stage1</strong></p>
 <p><span><br/>模擬兩球相撞</span></p>
 <script>
@@ -191,8 +199,7 @@ var winkVideoData_41023126 = {
 <div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/static" data-varname="winkVideoData_41023126" height="630" muted="true" width="1008">
 <source src="/downloads\w3-BubbleRob tutorial\w3-st10.mp4" type="video/mp4"/></video></div>
 <p><br/><strong>FINAL</strong></p>
-<p>調整障礙物位置 不要讓車子跑出去 就完成了</p>
-<h2>程式</h2>
+<p>調整障礙物位置 不要讓車子跑出去 就完成了</p><h2>程式</h2>
 <p></p>
 <p><strong>bubbleRob 程式</strong></p>
 <p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>

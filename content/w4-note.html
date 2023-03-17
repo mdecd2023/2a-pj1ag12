@@ -2,7 +2,7 @@
         <head>
         <title>cmsimde_site</title>
         <meta charset="utf-8">
-<meta property="head" content="H3">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -141,18 +141,16 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w3 << <a href='w3.html'>Previous</a> <a href='hw2.html'>Next</a> >> hw2<br /><h1>hw1</h1>
-<p><span></span></p>
-<p><span>請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
-<p>用Python的requests套件來進行網頁存取，並且查看網頁的回應狀態碼，判斷網頁是否存在。以下是一個可以判斷組別網頁建置狀態的Python程式：<br/>import requests</p>
-<p>base_url = "https://github.com/NTUT-2A/"</p>
-<p># 迭代21個組別<br/>for i in range(1, 22):<br/> # 組別網頁的URL<br/> url = base_url + f"2a-pj1ag{i}"</p>
-<p># 建立 GET 請求<br/> response = requests.get(url)</p>
-<p># 判斷回應狀態碼是否為200<br/> if response.status_code == 200:<br/> print(f"2a-pj1ag{i} 已經完成網頁建置")<br/> else:<br/> print(f"2a-pj1ag{i} 尚未完成網頁建置")<br/>程式會先以for迴圈迭代21個組別，然後使用requests.get()函式發送GET請求去查詢每一個組別的網頁狀態。如果回應狀態碼為200，代表網頁存在，組別已完成網頁建置；反之，如果回應狀態碼不是200，代表網頁不存在，組別尚未完成網頁建置。</p>
-<p></p>
-<p></p>
-<p></p>
-<br />w3 << <a href='w3.html'>Previous</a> <a href='hw2.html'>Next</a> >> hw2</div>
+    <div id="tipue_search_content">w4 << <a href='w4.html'>Previous</a> <a href='tutorial1.html'>Next</a> >> tutorial1<br /><h1>w4-note</h1>
+<p><strong>1.在 CoppeliaSim 中, scene 與 model 有何不同?</strong></p>
+<p>在CoppeliaSim中，場景（scene）和模型（model）是兩個不同的概念。場景是指由多個模型組成的環境或場景，而模型是指一個單獨的物件或組件。可以將模型添加到場景中，並對它們進行組合和控制。</p>
+<p><strong>2.在 CoppeliaSim scene 中, 何謂 clean model?</strong></p>
+<p><span>在CoppeliaSim中，clean model是指一個不包含任何不必要物件或組件的模型。這些物件或組件可能會干擾模型的性能或導致不必要的計算開銷。因此，建議在創建模型時始終保持模型的乾淨，只包含必要的物件或組件。</span></p>
+<p><strong>3.如何在 CoppeliaSim scene 中, 如何利用 Lua 以及 Python 建立 primitive type object, 並利用程式設定物件位置?</strong></p>
+<p><span>要在CoppeliaSim場景中建立基本類型物件並設定它們的位置，可以使用Lua或Python腳本。首先，需要建立物件，然後使用setObjectPosition（）函數將它們放置在所需的位置。例如，以下是在Lua中建立一個圓柱體並將其放置在（1,2,3）的位置的示例代碼：</span></p>
+<p>handle=sim.createPureShape(1,16,{0.1,0.1,0.2},0.1)<br/>sim.setObjectPosition(handle,-1,{1,2,3})</p>
+<p><strong>4.CoppeliaSim .ttt 檔案格式與 .simscene.xml 檔案格式有何不同?</strong></p>
+<p>在CoppeliaSim中，.ttt文件是二進制文件格式，用於保存整個場景，包括所有物件、組件、腳本等。而.simscene.xml文件是XML文件格式，用於保存場景的部分內容，如物件、組件和它們的位置等。這使得可以更容易地編輯和版本控制場景的部分內容，而不必保存整個場景。</p><br />w4 << <a href='w4.html'>Previous</a> <a href='tutorial1.html'>Next</a> >> tutorial1</div>
         
     <!-- footer -->
       <div class="container">
