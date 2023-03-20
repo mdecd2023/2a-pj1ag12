@@ -141,19 +141,27 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">製作過程 << <a href='製作過程.html'>Previous</a> <a href='中文版程式.html'>Next</a> >> 中文版程式<br /><h1>程式</h1>
-<p></p>
-<p><strong>bubbleRob 程式</strong></p>
-<p>function sysCall_init()<br/> <br/> -- This is executed exactly once, the first time this script is executed<br/> bubbleRobBase=sim.getObject('.') -- this is bubbleRob's handle<br/> leftMotor=sim.getObject("./leftMotor") -- Handle of the left motor<br/> rightMotor=sim.getObject("./rightMotor") -- Handle of the right motor<br/> noseSensor=sim.getObject("./sensingNose") -- Handle of the proximity sensor<br/> minMaxSpeed={50*math.pi/180,300*math.pi/180} -- Min and max speeds for each motor<br/> backUntilTime=-1 -- Tells whether bubbleRob is in forward or backward mode<br/> robotCollection=sim.createCollection(0)<br/> sim.addItemToCollection(robotCollection,sim.handle_tree,bubbleRobBase,0)<br/> distanceSegment=sim.addDrawingObject(sim.drawing_lines,4,0,-1,1,{0,1,0})<br/> robotTrace=sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic,2,0,-1,200,{1,1,0},nil,nil,{1,1,0})<br/> graph=sim.getObject('./graph')<br/> distStream=sim.addGraphStream(graph,'bubbleRob clearance','m',0,{1,0,0})<br/> -- Create the custom UI:<br/> xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'..[[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/> &lt;/ui&gt;<br/> ]]<br/> ui=simUI.create(xml)<br/> speed=(minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/> simUI.setSliderValue(ui,1,100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))<br/> <br/>end</p>
-<p>function sysCall_sensing()<br/> local result,distData=sim.checkDistance(robotCollection,sim.handle_all)<br/> if result&gt;0 then<br/> sim.addDrawingObjectItem(distanceSegment,nil)<br/> sim.addDrawingObjectItem(distanceSegment,distData)<br/> sim.setGraphStreamValue(graph,distStream,distData[7])<br/> end<br/> local p=sim.getObjectPosition(bubbleRobBase,sim.handle_world)<br/> sim.addDrawingObjectItem(robotTrace,p)<br/>end</p>
-<p>function speedChange_callback(ui,id,newVal)<br/> speed=minMaxSpeed[1]+(minMaxSpeed[2]-minMaxSpeed[1])*newVal/100<br/>end</p>
-<p>function sysCall_actuation() <br/> result=sim.readProximitySensor(noseSensor) -- Read the proximity sensor<br/> -- If we detected something, we set the backward mode:<br/> if (result&gt;0) then backUntilTime=sim.getSimulationTime()+4 end</p>
-<p>if (backUntilTime&lt;sim.getSimulationTime()) then<br/> -- When in forward mode, we simply move forward at the desired speed<br/> sim.setJointTargetVelocity(leftMotor,speed)<br/> sim.setJointTargetVelocity(rightMotor,speed)<br/> else<br/> -- When in backward mode, we simply backup in a curve at reduced speed<br/> sim.setJointTargetVelocity(leftMotor,-speed/2)<br/> sim.setJointTargetVelocity(rightMotor,-speed/8)<br/> end<br/>end</p>
-<p>function sysCall_cleanup() <br/> simUI.destroy(ui)<br/>end</p>
-<p><strong>Vision senser 程式</strong></p>
-<p>function sysCall_vision(inData)<br/> simVision.sensorImgToWorkImg(inData.handle)<br/> simVision.edgeDetectionOnWorkImg(inData.handle,0.2)<br/> simVision.workImgToSensorImg(inData.handle)<br/>end</p>
-<p>function sysCall_init()<br/>end</p>
-<br />製作過程 << <a href='製作過程.html'>Previous</a> <a href='中文版程式.html'>Next</a> >> 中文版程式</div>
+    <div id="tipue_search_content">程式 << <a href='程式.html'>Previous</a> <a href='lua轉成pythont程式.html'>Next</a> >> lua轉成pythont程式<br /><h1>中文版程式</h1>
+<p>還沒全部翻譯完</p>
+<p>-- 定義函數：當腳本被執行時，僅執行一次<br/>function sysCall_init()</p>
+<p>-- 獲取 bubbleRobBase 的句柄<br/>bubbleRobBase = sim.getObject('.')</p>
+<p>-- 獲取左右電機的句柄<br/>leftMotor = sim.getObject("./leftMotor") <br/>rightMotor = sim.getObject("./rightMotor")</p>
+<p>-- 獲取接近感測器的句柄<br/>noseSensor = sim.getObject("./sensingNose")</p>
+<p>-- 每個電機的最小和最大速度<br/>minMaxSpeed = {50*math.pi/180, 300*math.pi/180}</p>
+<p>-- 告訴程式 bubbleRob 當前是前進還是後退<br/>backUntilTime = -1</p>
+<p>-- 建立機器人集合<br/>robotCollection = sim.createCollection(0)<br/>sim.addItemToCollection(robotCollection, sim.handle_tree, bubbleRobBase, 0)</p>
+<p>-- 建立距離線段的視覺化物件<br/>distanceSegment = sim.addDrawingObject(sim.drawing_lines, 4, 0, -1, 1, {0,1,0})</p>
+<p>-- 建立機器人軌跡的視覺化物件<br/>robotTrace = sim.addDrawingObject(sim.drawing_linestrip+sim.drawing_cyclic, 2, 0, -1, 200, {1,1,0}, nil, nil, {1,1,0})</p>
+<p>-- 取得圖形物件<br/>graph = sim.getObject('./graph')</p>
+<p>-- 建立一個名為 bubbleRob clearance 的流並將其添加到圖形物件中<br/>distStream = sim.addGraphStream(graph, 'bubbleRob clearance', 'm', 0, {1,0,0})</p>
+<p>-- 建立自訂 UI 介面<br/>xml = '&lt;ui title="'..sim.getObjectAlias(bubbleRobBase,1)..' speed" closeable="false" resizeable="false" activate="false"&gt;'.. [[<br/> &lt;hslider minimum="0" maximum="100" on-change="speedChange_callback" id="1"/&gt;<br/> &lt;label text="" style="* {margin-left: 300px;}"/&gt;<br/>&lt;/ui&gt;<br/>]]</p>
+<p>ui = simUI.create(xml)</p>
+<p>-- 計算速度並將其設置為滑塊的初始值<br/>speed = (minMaxSpeed[1]+minMaxSpeed[2])*0.5<br/>simUI.setSliderValue(ui, 1, 100*(speed-minMaxSpeed[1])/(minMaxSpeed[2]-minMaxSpeed[1]))</p>
+<p>end</p>
+<p>-- 定義函數：當感測器更新時執行的操作<br/>function sysCall_sensing()<br/>-- 檢查集合中所有物件之間的距離<br/>local result, distData = sim.checkDistance(robotCollection, sim.handle_all)</p>
+<p>-- 如果有任何物體檢測到，則將檢測到的距離繪製為綠色線段<br/>if result &gt; 0 then<br/> sim.addDrawingObjectItem(distanceSegment, nil)<br/> sim.addDrawingObjectItem(distanceSegment, distData)<br/> sim.setGraphStreamValue(graph, distStream, distData[7])<br/>end</p>
+<p>-- 獲取機器人當前位置，並將其添加到軌跡可視化物件中<br/>local p = sim.getObjectPosition(bubbleRobBase, sim.handle_world)<br/>sim.addDrawingObjectItem(robotTrace, p)</p>
+<p><span>end</span></p><br />程式 << <a href='程式.html'>Previous</a> <a href='lua轉成pythont程式.html'>Next</a> >> lua轉成pythont程式</div>
         
     <!-- footer -->
       <div class="container">
