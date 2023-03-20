@@ -161,7 +161,8 @@ img.add_border {
 <p>-- 定義函數：當感測器更新時執行的操作<br/>function sysCall_sensing()<br/>-- 檢查集合中所有物件之間的距離<br/>local result, distData = sim.checkDistance(robotCollection, sim.handle_all)</p>
 <p>-- 如果有任何物體檢測到，則將檢測到的距離繪製為綠色線段<br/>if result &gt; 0 then<br/> sim.addDrawingObjectItem(distanceSegment, nil)<br/> sim.addDrawingObjectItem(distanceSegment, distData)<br/> sim.setGraphStreamValue(graph, distStream, distData[7])<br/>end</p>
 <p>-- 獲取機器人當前位置，並將其添加到軌跡可視化物件中<br/>local p = sim.getObjectPosition(bubbleRobBase, sim.handle_world)<br/>sim.addDrawingObjectItem(robotTrace, p)</p>
-<p><span>end</span></p><br />程式 << <a href='程式.html'>Previous</a> <a href='lua轉成pythont程式.html'>Next</a> >> lua轉成pythont程式</div>
+<p><span>end</span></p>
+<br />程式 << <a href='程式.html'>Previous</a> <a href='lua轉成pythont程式.html'>Next</a> >> lua轉成pythont程式</div>
         
     <!-- footer -->
       <div class="container">

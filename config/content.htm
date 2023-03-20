@@ -3,10 +3,11 @@
 <p>41023114 王樟皓 41023126 卓桓琮</p>
 <p>倉儲:<span> <a href="https://github.com/mdecd2023/2a-pj1ag12">https://github.com/mdecd2023/2a-pj1ag12</a></span></p>
 <p>網站:<span> <a href="https://mdecd2023.github.io/2a-pj1ag12">https://mdecd2023.github.io/2a-pj1ag12</a></span></p>
+<p><span></span></p>
 <h1>w3</h1>
 <p><span>hw1 請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
 <p><span> hw2 Tutorial1-CoppeliaSim 4.3.0 User Manual - CoppeliaSim 4.3.0 使用者手冊 </span><span role="gridcell"><a class="x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 xggy1nq x1a2a7pz xt0b8zv x1heor9g x1bvjpef" href="https://mde.tw/pjcopsim/content/bubbleRobTutorial.html?fbclid=IwAR2_4NZj894Af1a5p78_KQfokx4nNUzh0txWv_lf9c9VsPiOaQzjM4sGTgY" rel="nofollow" role="link" tabindex="-1" target="_blank">https://mde.tw/pjcopsim/content/bubbleRobTutorial.html</a></span><span> 心得, 展示頁面說明各組員所完成項目, 說明該組的專案規劃</span></p>
-<p></p>
+<p><span></span></p>
 <h3>hw1</h3>
 <p><span></span></p>
 <p><span>請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
@@ -248,7 +249,8 @@ var winkVideoData_41023126 = {
 <p>-- 定義函數：當感測器更新時執行的操作<br/>function sysCall_sensing()<br/>-- 檢查集合中所有物件之間的距離<br/>local result, distData = sim.checkDistance(robotCollection, sim.handle_all)</p>
 <p>-- 如果有任何物體檢測到，則將檢測到的距離繪製為綠色線段<br/>if result &gt; 0 then<br/> sim.addDrawingObjectItem(distanceSegment, nil)<br/> sim.addDrawingObjectItem(distanceSegment, distData)<br/> sim.setGraphStreamValue(graph, distStream, distData[7])<br/>end</p>
 <p>-- 獲取機器人當前位置，並將其添加到軌跡可視化物件中<br/>local p = sim.getObjectPosition(bubbleRobBase, sim.handle_world)<br/>sim.addDrawingObjectItem(robotTrace, p)</p>
-<p><span>end</span></p><h2>lua轉成pythont程式</h2>
+<p><span>end</span></p>
+<h2>lua轉成pythont程式</h2>
 <p>import sim</p>
 <p>def speedChange_callback(ui, id, newVal):<br/> global speed, minMaxSpeed<br/> speed = minMaxSpeed[1] + (minMaxSpeed[2] - minMaxSpeed[1]) * newVal / 100</p>
 <p>def sysCall_init():<br/> global bubbleRobBase, leftMotor, rightMotor, noseSensor, minMaxSpeed, backUntilTime<br/> global robotCollection, distanceSegment, robotTrace, graph, distStream, ui, speed</p>
