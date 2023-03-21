@@ -230,7 +230,6 @@ var winkVideoData_41023126 = {
 <p>function sysCall_vision(inData)<br/> simVision.sensorImgToWorkImg(inData.handle)<br/> simVision.edgeDetectionOnWorkImg(inData.handle,0.2)<br/> simVision.workImgToSensorImg(inData.handle)<br/>end</p>
 <p>function sysCall_init()<br/>end</p>
 <h2>中文版程式</h2>
-<p>還沒全部翻譯完</p>
 <p>-- 定義函數：當腳本被執行時，僅執行一次<br/>function sysCall_init()</p>
 <p>-- 獲取 bubbleRobBase 的句柄<br/>bubbleRobBase = sim.getObject('.')</p>
 <p>-- 獲取左右電機的句柄<br/>leftMotor = sim.getObject("./leftMotor") <br/>rightMotor = sim.getObject("./rightMotor")</p>
@@ -250,7 +249,16 @@ var winkVideoData_41023126 = {
 <p>-- 如果有任何物體檢測到，則將檢測到的距離繪製為綠色線段<br/>if result &gt; 0 then<br/> sim.addDrawingObjectItem(distanceSegment, nil)<br/> sim.addDrawingObjectItem(distanceSegment, distData)<br/> sim.setGraphStreamValue(graph, distStream, distData[7])<br/>end</p>
 <p>-- 獲取機器人當前位置，並將其添加到軌跡可視化物件中<br/>local p = sim.getObjectPosition(bubbleRobBase, sim.handle_world)<br/>sim.addDrawingObjectItem(robotTrace, p)</p>
 <p><span>end</span></p>
-<h2>lua轉成pythont程式</h2>
+<p><span>--是一個 UI 滑桿的回調函數，它根據滑桿的當前值更新 speed 變量</span></p>
+<p><span>speed=minMaxSpeed[1]+(minMaxSpeed[2]-minMaxSpeed[1])*newVal/100 end</span></p>
+<p><span>--讀取機器人的接近傳感器的值。如果傳感器檢測到有物體接近，在此球體則是將機器人的運動模式設置為向後移動，在4秒內進行倒退。否則，機器人將以所需速度向前運動</span></p>
+<p><span>unction sysCall_actuation() result=sim.readProximitySensor(noseSensor) -- Read the proximity sensor -- If we detected something, we set the backward mode: if (result&gt;0) then backUntilTime=sim.getSimulationTime()+4 end</span></p>
+<p><span>--這個函數是腳本清理函數，當腳本結束運行時，用於銷毀 UI 元素。</span></p>
+<p><span>function sysCall_cleanup() simUI.destroy(ui) end</span></p>
+<p><span>--處理視覺感測器的數據。它首先將感測器圖像轉換到工作圖像中，然後對工作圖像進行邊緣檢測，最後將處理後的工作圖像轉換回感測器圖像中</span></p>
+<p><span>function sysCall_vision(inData) simVision.sensorImgToWorkImg(inData.handle) simVision.edgeDetectionOnWorkImg(inData.handle,0.2) simVision.workImgToSensorImg(inData.handle) end</span></p>
+<p><span>--腳本初始化函數，在腳本開始運行時調用</span></p>
+<p><span>function sysCall_init() end</span></p><h2>lua轉成pythont程式</h2>
 <p>import sim</p>
 <p>def speedChange_callback(ui, id, newVal):<br/> global speed, minMaxSpeed<br/> speed = minMaxSpeed[1] + (minMaxSpeed[2] - minMaxSpeed[1]) * newVal / 100</p>
 <p>def sysCall_init():<br/> global bubbleRobBase, leftMotor, rightMotor, noseSensor, minMaxSpeed, backUntilTime<br/> global robotCollection, distanceSegment, robotTrace, graph, distStream, ui, speed</p>
