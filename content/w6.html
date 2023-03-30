@@ -141,8 +141,29 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Lua程式 << <a href='Lua程式.html'>Previous</a> <a href='專案規劃定義.html'>Next</a> >> 專案規劃定義<br /><h1>補充note</h1>
-<br />Lua程式 << <a href='Lua程式.html'>Previous</a> <a href='專案規劃定義.html'>Next</a> >> 專案規劃定義</div>
+    <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='tutorial1.html'>Next</a> >> tutorial1<br /><h1>w6</h1>
+<p><span>請各組在 pj1 分組網頁中, 以 w6 (H2) 作為頁面標題, 直接在頁面中, 列出完成連線的分組與未完成連線的分組組員學號. </span></p>
+<p>分別是</p>
+<ul>
+<li>ag6</li>
+<li>ag13</li>
+<li>ag14</li>
+<li>ag18</li>
+<li>ag21</li>
+</ul>
+<p>利用python程式碼</p>
+<p># 將每個組別存到一個集合中<br/>group_set = set()<br/># 將已知的組別加入集合中<br/>known_groups = ["ag1", "ag2", "ag5", "ag7", "ag8", "ag9", "ag10", "ag11", "ag15", "ag16", "ag17", "ag21"]<br/>group_set.update(known_groups)</p>
+<p># 搜集每個 "Hello, bubbleRob, 我們是 agx 分組!" 句子中的 agx 組別<br/>lines = [<br/> "Hello, bubbleRpb, 我們是 ag10 分組!",<br/> "Hello,bubbleRob,我們是ag1分組",<br/> "Hello,bubbleRod,我們是ag8分組!",<br/> "Hello,bubbleRob,我們是ag2分組",<br/> "Hello, bubbleRob, 我們是 ag6 分組!",<br/> "Hello, bubbleRob, 我們是 agx 分組!",<br/> "Hellow,bubbleRob,我們是ag5分組",<br/> "Hello.bubbleRob.我們是ag17分組",<br/> "Hello, bubbleRob , 我們是 ag11 分組!",<br/> "Hello,bubbleRob,我們是ag5分組",<br/> "Hello, bubbleRob,我們是ag10分組",<br/> "Hello, bubbleRob ,我們是ag15分組",<br/> "Hello,bubbleRod,我們是ag16分組!",<br/> "Hello,bubblerob,我們是ag12分組!!",<br/> "Hello, bubbleRob,我們是ag14分組",<br/> "Hello,bubbleRob,我們是ag13分組",<br/> "Hello, bubbleRob,我們是ag21分組",<br/> "hello,bubblerob,我們是ag15分組!",<br/> "Hello,bubbleRod,我們是ag7分組!",<br/> "Hello,bubbleRob,我們是ag7分組!",<br/> "Hello,bubbleRob,我們是ag9分組",<br/> "Hello,bubbleRob,我們是ag18分組!",<br/> "Hello,bubbleRob,我們是ag9分組",<br/> "Hello,bubbleRob,我們是ag8分組!",<br/> "Hell,bubbleRob,我們是ag8分組!"<br/>]</p>
+<p>for line in lines:<br/> # 從句子中取得 agx 組別<br/> group = line.split(" ")[-2]<br/> # 如果這個組別不在已知的組別中，則印出來<br/> if group not in group_set:<br/> print(f"未知組別：{group}")</p>
+<p>會列出</p>
+<ul>
+<li>ag6</li>
+<li>ag13</li>
+<li>ag14</li>
+<li>ag18</li>
+<li>ag21</li>
+</ul>
+<p><span></span></p><br />w5 << <a href='w5.html'>Previous</a> <a href='tutorial1.html'>Next</a> >> tutorial1</div>
         
     <!-- footer -->
       <div class="container">
