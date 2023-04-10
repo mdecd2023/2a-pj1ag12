@@ -5,6 +5,15 @@
 <p>網站:<span> <a href="https://mdecd2023.github.io/2a-pj1ag12">https://mdecd2023.github.io/2a-pj1ag12</a></span></p>
 <p><span></span></p>
 <h1>weekly progress</h1>
+<p>w1:說明課程和評分標準</p>
+<p>w2:二二八連假</p>
+<p>w3-monday:講解如何建立靜態網站</p>
+<p>w3-thusday:補課</p>
+<p>w4:課堂報告</p>
+<p>w5:建立一個由 pj1 各組組長所組成的統整作業</p>
+<p>分工進度</p>
+<p>41023114 建立靜態網站</p>
+<p>41023126 更新網頁內容</p>
 <h2>w3</h2>
 <p><span>hw1 請各組寫一個程式判定 2a 哪一組已經完成網頁建置.</span></p>
 <p><span> hw2 Tutorial1-CoppeliaSim 4.3.0 User Manual - CoppeliaSim 4.3.0 使用者手冊 </span><span role="gridcell"><a class="x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 xggy1nq x1a2a7pz xt0b8zv x1heor9g x1bvjpef" href="https://mde.tw/pjcopsim/content/bubbleRobTutorial.html?fbclid=IwAR2_4NZj894Af1a5p78_KQfokx4nNUzh0txWv_lf9c9VsPiOaQzjM4sGTgY" rel="nofollow" role="link" tabindex="-1" target="_blank">https://mde.tw/pjcopsim/content/bubbleRobTutorial.html</a></span><span> 心得, 展示頁面說明各組員所完成項目, 說明該組的專案規劃</span></p>
@@ -335,17 +344,15 @@ var winkVideoData_41023126 = {
 <p>解決方法--&gt;利用git pull 指令將遠端的資料拉下來合併</p>
 <p>製作bubbleRob的過程中發現英文真的很重要，因為有些部分翻譯過會怪怪的，所以要重複閱讀幾次，才能知道是甚麼意思。</p>
 <p>41023114心得:<br/>對於這個bubblerob，我認為他的建構對我們而言算是挺有難度的，由於這次的模型包含的屬性眾多，因此整理重點時，有某些細項需要重複閱讀和翻譯幾次才能理解，且由於它屬於感知機器人，因此還得幫它加入腳本語言，且操作上對於不同空間的黏貼組合，我們仍需要多參閱其他範本，畢竟有時候按圖施工也不一定保證成功。</p>
-<h1>Progress</h1>
-<p>w1:說明課程和評分標準</p>
-<p>w2:二二八連假</p>
-<p>w3-monday:講解如何建立靜態網站</p>
-<p>w3-thusday:補課</p>
-<p>w4:課堂報告</p>
-<p>w5:建立一個由 pj1 各組組長所組成的統整作業</p>
-<p>分工進度</p>
-<p>41023114 建立靜態網站</p>
-<p>41023126 更新網頁內容</p>
-<h1>note</h1>
+<h1>problem</h1>
+<p>1.無法轉靜態</p>
+<p>Traceback (most recent call last):<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2551, in __call__<br/> return self.wsgi_app(environ, start_response)<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2531, in wsgi_app<br/> response = self.handle_exception(e)<br/> File "y:\Python3108\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function<br/> return cors_after_request(app.make_response(f(*args, **kwargs)))<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2528, in wsgi_app<br/> response = self.full_dispatch_request()<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request<br/> rv = self.handle_user_exception(e)<br/> File "y:\Python3108\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function<br/> return cors_after_request(app.make_response(f(*args, **kwargs)))<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request<br/> rv = self.dispatch_request()<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1799, in dispatch_request<br/> return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)<br/> File "Y:\cd2023\2a-pj1ag12\cmsimde\flaskapp.py", line 983, in generate_pages<br/> soup = bs4.BeautifulSoup(" ".join(get_page_content), "lxml")<br/> File "y:\Python3108\Lib\site-packages\bs4\__init__.py", line 248, in __init__<br/> raise FeatureNotFound(<br/>bs4.FeatureNotFound: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?<br/>127.0.0.1 - - [10/Apr/2023 10:14:27] "GET /generate_pages?__debugger__=yes&amp;cmd=resource&amp;f=style.css HTTP/1.1" 200 -</p>
+<p><strong>solution:</strong></p>
+<p>Y:\cd2023\2a-pj1ag12&gt;<strong>pip install lxml</strong><br/>Collecting lxml<br/> Downloading lxml-4.9.2-cp310-cp310-win_amd64.whl (3.8 MB)<br/> ---------------------------------------- 3.8/3.8 MB 394.2 kB/s eta 0:00:00<br/>Installing collected packages: lxml<br/>Successfully installed lxml-4.9.2</p>
+<p>[notice] A new release of pip is available: 23.0 -&gt; 23.0.1<br/>[notice] To update, run: python.exe -m pip install --upgrade pip</p>
+<p></p>
+<p></p>
+<p></p><h1>note</h1>
 <h2>程式note</h2>
 <p>python 相關資料</p>
 <p>參考來源:<a href="https://steam.oxxostudio.tw/category/python/index.html">Python 教學 | STEAM 教育學習網 (oxxostudio.tw)</a></p>
