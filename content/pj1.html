@@ -142,7 +142,29 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='w6.html'>Next</a> >> w6<br /><h1>pj1</h1>
-<br />w5 << <a href='w5.html'>Previous</a> <a href='w6.html'>Next</a> >> w6</div>
+<p><span>目標:利用兩台 BubbleRob 雙輪車在一足球場景中進行對戰, 其中在雙方球門設置感測器, 雙方各有一名 BubbleRob 負責運球, 在規定時間內, 每進一球後, 即透過程式重新從球場中線發球重啟賽局. 其中各組必須設法配置計分板顯示比賽剩餘時間與比分.</span></p>
+<p><span>Step1:建立足球場景，透過onshape繪出足球的場景，足球分成兩部分第一部分為足球的牆壁第二部分為球門。足球的牆壁:<a href="https://cad.onshape.com/documents/1ef9bb78edd5251adafdfbeb/w/0699139f42c9ebc4817c6156/e/20413e231639dd10dc11bb42?renderMode=0&amp;uiState=643a420fb4776c6d78624f23">wall</a> 球門:<a href="https://cad.onshape.com/documents/a377cc4e5b1ef7cab53572bc/w/239bf2d6c24d9f9c80b7a628/e/20ebee5effb2f8812f5d7e8a?renderMode=0&amp;uiState=643a427646ce454f67f78abb">door</a></span></p>
+<p><span>Step2:轉成STL檔匯入coppaliasim中，放入先前製作的<a href="./../downloads/bubbRob.ttt">bobbleRob robot</a>，並複製兩個在場景中，加入球體 過程:</span><a href="https://youtu.be/kS8bhxbiVso">https://youtu.be/kS8bhxbiVso</a></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/kS8bhxbiVso" width="560"></iframe></p>
+<p></p>
+<p>Step3:在兩個球門上加入感應sensor，以感測是否進球，將兩個seonsor拉到球門底下</p>
+<p><img alt="" height="676" src="./../images/pj1-note1.png" width="1202"/></p>
+<p>Step4:加入sensor程式碼-利用chatgpt 寫出程式碼(包括記分板及計時器)</p>
+<p>文字檔:<a href="./../downloads/sensor-program.txt">sensor-program.txt</a></p>
+<p>function sysCall_init()<br/> score1 = 0<br/> remaining_time = 60 -- 1 minute<br/> sensor = sim.getObject('./sensor')<br/> xml = [[ &lt;ui title="Scoreboard" closeable="false" resizable="false" style="plastique"&gt; &lt;label text="Score:" style="* {background-color: #808080; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="10"/&gt; &lt;label text="0" style="* {background-color: #1E90FF; color: #FFFFFF; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px;}" id="30"/&gt; &lt;label text="Time left: 60s" style="* {background-color: #808080; color: #000000; font-size: 20px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="40"/&gt; &lt;/ui&gt; ]]<br/> ui = simUI.create(xml)<br/> simUI.setPosition(ui, 0,0, true)<br/> bubbleRob1 = sim.getObject('/bubbleRob1')<br/> ball = sim.getObject('/ball')<br/> bubbleRob2 = sim.getObject('/bubbleRob2')<br/> initialPosition = sim.getObjectPosition(bubbleRob1, -1)<br/> initialOrientation = sim.getObjectOrientation(bubbleRob1, -1)<br/> initialPosition2 = sim.getObjectPosition(bubbleRob2, -1)<br/> initialOrientation2 = sim.getObjectOrientation(bubbleRob2, -1)<br/> initialballPosition = sim.getObjectPosition(ball, -1)<br/> initialballOrientation = sim.getObjectOrientation(ball, -1)<br/>end</p>
+<p>function sysCall_actuation()<br/> -- read the proximity sensor value<br/> result=sim.readProximitySensor(sensor)<br/> -- check if the remaining time is greater than 0<br/> if(remaining_time &gt; 0) then<br/> -- check if the proximity sensor detects something<br/> if(result&gt;0) then<br/> -- increase the score and update the UI label<br/> score2 = score1+1<br/> simUI.setLabelText(ui, 30, tostring(score2))<br/> -- reset the objects' positions and orientations<br/> sim.setObjectPosition(bubbleRob1, -1, initialPosition)<br/> sim.setObjectOrientation(bubbleRob1, -1, initialOrientation)<br/> sim.setObjectPosition(bubbleRob2, -1, initialPosition2)<br/> sim.setObjectOrientation(bubbleRob2, -1, initialOrientation2)<br/> sim.setObjectPosition(ball, -1, initialballPosition)<br/> sim.setObjectOrientation(ball, -1, initialballOrientation)<br/> -- update the score variable<br/> score1=score2<br/> end<br/> -- update the remaining time and the UI label<br/> remaining_time = remaining_time - sim.getSimulationTimeStep()<br/> simUI.setLabelText(ui, 40, "Time left: "..math.floor(remaining_time).."s")<br/> else<br/> sim.stopSimulation()<br/> end<br/>end</p>
+<p>Step5:打開小白窗 加入程式碼 go</p>
+<p>文字檔:<a href="./../downloads/senser1-whiteboard-program.txt">white window</a></p>
+<p># pip install pyzmq cbor<br/>from zmqRemoteApi import RemoteAPIClient<br/>import keyboard</p>
+<p>client = RemoteAPIClient('localhost', 23000)</p>
+<p>print('Program started')<br/>sim = client.getObject('sim')<br/>sim.startSimulation()<br/>print('Simulation started')</p>
+<p>def setBubbleRobVelocity(leftWheelVelocity, rightWheelVelocity):<br/> leftMotor = sim.getObject('/leftMotor')<br/> rightMotor = sim.getObject('/rightMotor')<br/> sim.setJointTargetVelocity(leftMotor, leftWheelVelocity)<br/> sim.setJointTargetVelocity(rightMotor, rightWheelVelocity)</p>
+<p>'''<br/># Example usage 1:<br/>setBubbleRobVelocity(1.0, 1.0)<br/>time.sleep(2)<br/>setBubbleRobVelocity(0.0, 0.0)<br/>'''<br/># use keyborad to move BubbleRob</p>
+<p>while True:<br/> if keyboard.is_pressed('up'):<br/> setBubbleRobVelocity(1.0, 1.0)<br/> elif keyboard.is_pressed('down'):<br/> setBubbleRobVelocity(-1.0, -1.0)<br/> elif keyboard.is_pressed('left'):<br/> setBubbleRobVelocity(-1.0, 1.0)<br/> elif keyboard.is_pressed('right'):<br/> setBubbleRobVelocity(1.0, -1.0)<br/> elif keyboard.is_pressed('q'):<br/> # stop simulation<br/> sim.stopSimulation()<br/> else:<br/> setBubbleRobVelocity(0.0, 0.0)</p>
+<p>在football的場景加入計時器和記分板 過程:<a href="https://youtu.be/EZ_mE9P4j-s">https://youtu.be/EZ_mE9P4j-s</a></p>
+<p><img alt="" height="434" src="./../images/螢幕擷取畫面 2023-04-15 214035.png" width="774"/></p>
+<p><img alt="" height="418" src="./../images/螢幕擷取畫面 2023-04-15 231414.png" width="796"/></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/EZ_mE9P4j-s" width="560"></iframe></p><br />w5 << <a href='w5.html'>Previous</a> <a href='w6.html'>Next</a> >> w6</div>
         
     <!-- footer -->
       <div class="container">

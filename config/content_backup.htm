@@ -58,7 +58,26 @@
 <h2>w5</h2>
 <div>W5 起將建立一個由 pj1 各組組長所組成的統整作業, 目標是利用兩台 BubbleRob 雙輪車在一足球場景中進行對戰, 其中在雙方球門設置感測器, 雙方各有一名 BubbleRob 負責運球, 在規定時間內, 每進一球後, 即透過程式重新從球場中線發球重啟賽局. 其中各組必須設法配置計分板顯示比賽剩餘時間與比分.</div>
 <h1>pj1</h1>
-<h2>w6</h2>
+<p><span>目標:利用兩台 BubbleRob 雙輪車在一足球場景中進行對戰, 其中在雙方球門設置感測器, 雙方各有一名 BubbleRob 負責運球, 在規定時間內, 每進一球後, 即透過程式重新從球場中線發球重啟賽局. 其中各組必須設法配置計分板顯示比賽剩餘時間與比分.</span></p>
+<p><span>Step1:建立足球場景，透過onshape繪出足球的場景，足球分成兩部分第一部分為足球的牆壁第二部分為球門。足球的牆壁:<a href="https://cad.onshape.com/documents/1ef9bb78edd5251adafdfbeb/w/0699139f42c9ebc4817c6156/e/20413e231639dd10dc11bb42?renderMode=0&amp;uiState=643a420fb4776c6d78624f23">wall</a> 球門:<a href="https://cad.onshape.com/documents/a377cc4e5b1ef7cab53572bc/w/239bf2d6c24d9f9c80b7a628/e/20ebee5effb2f8812f5d7e8a?renderMode=0&amp;uiState=643a427646ce454f67f78abb">door</a></span></p>
+<p><span>Step2:轉成STL檔匯入coppaliasim中，放入先前製作的<a href="/downloads/bubbRob.ttt">bobbleRob robot</a>，並複製兩個在場景中，加入球體 過程:</span><a href="https://youtu.be/kS8bhxbiVso">https://youtu.be/kS8bhxbiVso</a></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/kS8bhxbiVso" width="560"></iframe></p>
+<p></p>
+<p>Step3:在兩個球門上加入感應sensor，以感測是否進球，將兩個seonsor拉到球門底下</p>
+<p><img alt="" height="676" src="/images/pj1-note1.png" width="1202"/></p>
+<p>Step4:加入sensor程式碼-利用chatgpt 寫出程式碼(包括記分板及計時器)</p>
+<p>Step5:打開小白窗 加入程式碼 go</p>
+<p># pip install pyzmq cbor<br/>from zmqRemoteApi import RemoteAPIClient<br/>import keyboard</p>
+<p>client = RemoteAPIClient('localhost', 23000)</p>
+<p>print('Program started')<br/>sim = client.getObject('sim')<br/>sim.startSimulation()<br/>print('Simulation started')</p>
+<p>def setBubbleRobVelocity(leftWheelVelocity, rightWheelVelocity):<br/> leftMotor = sim.getObject('/leftMotor')<br/> rightMotor = sim.getObject('/rightMotor')<br/> sim.setJointTargetVelocity(leftMotor, leftWheelVelocity)<br/> sim.setJointTargetVelocity(rightMotor, rightWheelVelocity)</p>
+<p>'''<br/># Example usage 1:<br/>setBubbleRobVelocity(1.0, 1.0)<br/>time.sleep(2)<br/>setBubbleRobVelocity(0.0, 0.0)<br/>'''<br/># use keyborad to move BubbleRob</p>
+<p>while True:<br/> if keyboard.is_pressed('up'):<br/> setBubbleRobVelocity(1.0, 1.0)<br/> elif keyboard.is_pressed('down'):<br/> setBubbleRobVelocity(-1.0, -1.0)<br/> elif keyboard.is_pressed('left'):<br/> setBubbleRobVelocity(-1.0, 1.0)<br/> elif keyboard.is_pressed('right'):<br/> setBubbleRobVelocity(1.0, -1.0)<br/> elif keyboard.is_pressed('q'):<br/> # stop simulation<br/> sim.stopSimulation()<br/> else:<br/> setBubbleRobVelocity(0.0, 0.0)</p>
+<p>在football的場景加入計時器和記分板 過程:<a href="https://youtu.be/EZ_mE9P4j-s">https://youtu.be/EZ_mE9P4j-s</a></p>
+<p><img alt="" height="434" src="/images/螢幕擷取畫面 2023-04-15 214035.png" width="774"/></p>
+<p><img alt="" height="418" src="/images/螢幕擷取畫面 2023-04-15 231414.png" width="796"/></p>
+<p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/EZ_mE9P4j-s" width="560"></iframe></p>
+<p>Step6:設埠號 即可模擬 兩台<span>雙輪車在一足球場景中進行對戰</span></p><h2>w6</h2>
 <p><span>請各組在 pj1 分組網頁中, 以 w6 (H2) 作為頁面標題, 直接在頁面中, 列出完成連線的分組與未完成連線的分組組員學號.</span></p>
 <p><span>完成連線分別是</span></p>
 <p>ag1</p>
@@ -344,7 +363,7 @@ var winkVideoData_41023126 = {
 <p>解決方法--&gt;利用git pull 指令將遠端的資料拉下來合併</p>
 <p>製作bubbleRob的過程中發現英文真的很重要，因為有些部分翻譯過會怪怪的，所以要重複閱讀幾次，才能知道是甚麼意思。</p>
 <p>41023114心得:<br/>對於這個bubblerob，我認為他的建構對我們而言算是挺有難度的，由於這次的模型包含的屬性眾多，因此整理重點時，有某些細項需要重複閱讀和翻譯幾次才能理解，且由於它屬於感知機器人，因此還得幫它加入腳本語言，且操作上對於不同空間的黏貼組合，我們仍需要多參閱其他範本，畢竟有時候按圖施工也不一定保證成功。</p>
-<h1>Problem</h1>
+<h1>problem</h1>
 <p>1.無法轉靜態</p>
 <p>Traceback (most recent call last):<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2551, in __call__<br/> return self.wsgi_app(environ, start_response)<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2531, in wsgi_app<br/> response = self.handle_exception(e)<br/> File "y:\Python3108\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function<br/> return cors_after_request(app.make_response(f(*args, **kwargs)))<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 2528, in wsgi_app<br/> response = self.full_dispatch_request()<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1825, in full_dispatch_request<br/> rv = self.handle_user_exception(e)<br/> File "y:\Python3108\Lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function<br/> return cors_after_request(app.make_response(f(*args, **kwargs)))<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1823, in full_dispatch_request<br/> rv = self.dispatch_request()<br/> File "y:\Python3108\Lib\site-packages\flask\app.py", line 1799, in dispatch_request<br/> return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)<br/> File "Y:\cd2023\2a-pj1ag12\cmsimde\flaskapp.py", line 983, in generate_pages<br/> soup = bs4.BeautifulSoup(" ".join(get_page_content), "lxml")<br/> File "y:\Python3108\Lib\site-packages\bs4\__init__.py", line 248, in __init__<br/> raise FeatureNotFound(<br/>bs4.FeatureNotFound: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?<br/>127.0.0.1 - - [10/Apr/2023 10:14:27] "GET /generate_pages?__debugger__=yes&amp;cmd=resource&amp;f=style.css HTTP/1.1" 200 -</p>
 <p><strong>solution:</strong></p>
